@@ -1,0 +1,1 @@
+cmd_/home/udooer/Projet_final/driver.ko := ld -EL -r  -T /usr/src/linux-headers-3.14.56-udooneo/scripts/module-common.lds --build-id  -o /home/udooer/Projet_final/driver.ko /home/udooer/Projet_final/driver.o /home/udooer/Projet_final/driver.mod.o

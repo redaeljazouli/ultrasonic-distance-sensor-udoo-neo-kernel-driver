@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capteur de distance</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 10px;
+            display: flex;
+            flex-direction: column;
+            min-height: 85vh;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .logo img {
+            width: 520px;
+            height: auto;
+        }
+        .distance {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            margin-bottom: 50px;
+        }
+        .distance pre {
+            font-size: 65px;
+            color: #333;
+            margin: 0;
+        }
+        button {
+            display: block;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 auto 30px auto;
+        }
+        button:hover {
+            background-color: #444;
+        }
+        footer {
+            text-align: center;
+            margin-top: auto;
+            padding: 2px 0;
+            font-size: 20px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Insa-rennes-logo.svg/2560px-Insa-rennes-logo.svg.png" alt="Logo">
+        </div>
+        <h1>Capteur de distances :</h1>
+        <div class="distance">
+            <pre id="distance">---</pre>
+        </div>
+        <button id="relaunchButton">Relancer le test de distance</button>
+        <footer>
+            Auteurs du projet : Reda-Allah El jazouli, M'hammed Bouzoubaa, Hasna Essakali     
+        </footer>
+	<footer>
+	    4EII 2022-2023
+	</footer>
+    </div>
+<script>
+    function updateDistance() {
+        fetch('/api/data')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("distance").innerText = data.distance;
+            })
+            .catch(error => {
+                console.error("Erreur lors de la récupération des données du capteur :", error);
+            });
+    }
+
+    document.getElementById("relaunchButton").addEventListener("click", function() {
+        fetch('/api/relaunch_test')
+            .then(response => response.json())
+            .then(data => {
+                updateDistance();
+            })
+            .catch(error => {
+                console.error("Erreur lors du lancement du test de distance:", error);
+            });
+    });
+
+    // Mettez à jour l'affichage des distances lors du chargement de la page
+    updateDistance();
+</script>
+</body>
+</html>

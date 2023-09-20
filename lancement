@@ -1,0 +1,9 @@
+#!/bin/bash
+#Initalisation du driver dans le systeme
+sudo insmod driver.ko
+#Creation du noeud
+sudo mknod /dev/driver c 247 0
+#Lancement du site
+python3 Site/app.py
+#Lancement du test
+cat /dev/driver

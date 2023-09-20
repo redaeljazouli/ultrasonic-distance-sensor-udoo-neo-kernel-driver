@@ -1,0 +1,2 @@
+La moyenne est : 165cm
+L'ecart type est : 51
